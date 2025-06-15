@@ -41,7 +41,7 @@ Criar card com sucesso
 Validar criacao de um time
     Então devo identificar 3 cards no time esperado
 
-Validar criacao de cata time
+Validar criacao de cada time
     Dado que preencho os campos do formulario
     Entao deve ser exibido um card em cada time disponivel
     
@@ -67,7 +67,6 @@ Então devo identificar 3 cards no time esperado
     END
     @{Colaboradores}    Get WebElements    //section[.//h3[text()='Programação']]//div[@class='colaborador']
     Length Should Be    ${Colaboradores}    3
-    Sleep    10s
 Entao deve ser exibido um card em cada time disponivel
     FOR    ${index}    ${time}    IN ENUMERATE    @{select_times}
         Dado que preencho os campos do formulario
@@ -77,4 +76,3 @@ Entao deve ser exibido um card em cada time disponivel
         ${equipes_section}    Get WebElement    //section[.//h3[text()='${equipe_atual}']]//div[@class='colaborador']
         Element Should Be Visible    ${equipes_section}
     END
-    Sleep    10s
