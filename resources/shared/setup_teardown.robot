@@ -1,5 +1,5 @@
 *** Settings ***
-Library    SeleniumLibrary
+Resource    ../main.robot
 
 *** Keywords ***
 Dado que acesso o Orano

@@ -1,18 +1,15 @@
 *** Settings ***
-Library          SeleniumLibrary
-Library          FakerLibrary    locale=pt_BR
-Resource         setup_teardown.robot
-Test Setup       Dado que acesso o Orano
-Test Teardown    Fechar o navegador
+Resource    ../main.robot
 
-*** Variables ***              
-${URL}                     http://localhost:3000/
+*** Variables ***
 ${CAMPO_NOME}              id:form-nome
 ${CAMPO_CARGO}             id:form-cargo
 ${CAMPO_IMG}               id:form-imagem
 ${CAMPO_TIME}              class:lista-suspensa
 ${BOTAO_CARD}              id:form-botao
 ${CARD_COLABORADOR}        class:colaborador
+${ERRO_MESSAGE}            css:p[id$="erro"]
+
 @{select_times}
 ...       //option[contains(.,'Programação')]
 ...       //option[contains(.,'Front-End')]
@@ -30,21 +27,6 @@ ${CARD_COLABORADOR}        class:colaborador
 ...    UX e Design
 ...    Mobile
 ...    Inovação e Gestão
-
-
-*** Test Cases ***
-Criar card com sucesso
-    Dado que preencho os campos do formulario
-    Quando clico no botao criar card
-    Entao identifico o card no time esperado
-
-Validar criacao de um time
-    Então devo identificar 3 cards no time esperado
-
-Validar criacao de cada time
-    Dado que preencho os campos do formulario
-    Entao deve ser exibido um card em cada time disponivel
-    
 
 *** Keywords ***
 Dado que preencho os campos do formulario
@@ -76,3 +58,6 @@ Entao deve ser exibido um card em cada time disponivel
         ${equipes_section}    Get WebElement    //section[.//h3[text()='${equipe_atual}']]//div[@class='colaborador']
         Element Should Be Visible    ${equipes_section}
     END
+
+Entao a mensagem de campo obrigatorio deve ser exibida
+    Element Should Be Visible    ${ERRO_MESSAGE}
